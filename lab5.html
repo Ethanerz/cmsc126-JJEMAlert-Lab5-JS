@@ -3,9 +3,6 @@
     <button onclick="time_now()">Show Current Date</button>
     <p id="output"></p>
 	<form>
-		<label for="snum">Student Number:</label><br>
-		<input type="text" id="snum" name="snum" readonly>
-		<button type="button" onclick="numGen()">Generate Student Number</button><br>
 		<label for="uname">Name:</label><br>
 		<input type="text" id="uname" name="uname"><br>
 		<label for="age">Age:</label><br>
@@ -20,7 +17,10 @@
 			<option value="BS Video Gaming">BS Video Gaming</option>
 			<option value="BS Installing and Downloading">BS Installing and Downloading</option>
 		</select><br>
-		<button type="button" onclick="add_student()">Submit</button>
+		<button type="button" onclick="add_student()">Submit</button><br>
+		<!-- Temporary Button to show added student info in console -->
+		<button type="button" onclick="showStudents()">show</button>
+		<!-- Will remove in the future -->
 	</form>
   </center>
   <script src="lab5_scripts.js"></script>

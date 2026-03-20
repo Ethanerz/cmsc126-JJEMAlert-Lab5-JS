@@ -14,27 +14,30 @@ function time_now(){
     document.getElementById("output").innerHTML = 'Today is ' + now.toLocaleDateString('en-US', options) + "<br>The current time is " + now.toLocaleTimeString('en-US',optionsTime);
 }
 
-function numGen(){
-        let num;
-		do {
-			num = "2024" + (Math.floor(Math.random() * 90000) + 10000);
-		} while (students.some(s => s.studentNo === num));
-		document.getElementById("snum").value = num;
-		return num;
-    }
+
+// Temporary Function to show added student info in console
+function showStudents(){
+	for (i=0; i < students.length; i++){
+		console.log(students[i].studentNo)
+		console.log(students[i].name)
+		console.log(students[i].age)
+		console.log(students[i].email)
+		console.log(students[i].course)
+	}
+}
+// Will remove in the future
 
 function add_student() {
-    const studentNo = document.getElementById("snum").value;
     const name = document.getElementById("uname").value;
     const age = Number(document.getElementById("age").value);
     const email = document.getElementById("mail").value;
     const course = document.getElementById("course").value;
-
-    const student = new Student(studentNo, name, age, email, course);
+	// use Try-Catch here i guess to stop it creating a student if there's an invalid input
+    const student = new Student(name, age, email, course);
     students.push(student);
     console.log("Student added!", students);
-
-    document.getElementById("snum").value = "";
+	
+	//Resets the text fields and dropdown window to default after student creation
     document.getElementById("uname").value = "";
     document.getElementById("age").value = "";
     document.getElementById("mail").value = "";
@@ -42,14 +45,23 @@ function add_student() {
 }
 
 class Student {
-    constructor(studentNo, name, age, email, course) {
-        this.studentNo = studentNo;
+    constructor(name, age, email, course) {
+        this.studentNo = this.numGen();
         this.name = this.nameVer(name);
         this.age = this.ageVer(age);
         this.email = this.emailVer(email);
         this.course = course;
     }
     
+	numGen(){
+        let num;
+		do {
+			num = "2024" + (Math.floor(Math.random() * 90000) + 10000);
+		} while (students.some(s => s.studentNo === num));
+		return num;
+	}
+	
+	//Throw an error when Invalid user input
     nameVer(name){
          if (name.length > 5 && name.includes(" ")) {
             return name;
@@ -69,20 +81,6 @@ class Student {
             return email;
         } else {
             console.log("Invalid email!");
-        }
-    }
-    courseVer(course){
-                const courses = [
-            "BA Food Appreciation",
-            "BA Applied Poetry of the Future",
-            "BS Computer Repair Shop",
-            "BS Video Gaming",
-            "BS Installing and Downloading"
-        ];
-        if (courses.includes(course)) {
-            return course;
-        } else {
-            console.log("Invalid course!");
         }
     }
 }
