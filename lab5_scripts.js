@@ -1,4 +1,5 @@
-/*---STEP 2---*/
+const students = [];
+
 function time_now(){
     const now = new Date();
     const options ={
@@ -15,56 +16,122 @@ function time_now(){
 /*---STEP 2 END---*/
 
 
+// Temporary Function to show added student info in console
+function showStudents(){
+	for (i=0; i < students.length; i++){
+		console.log(students[i].studentNo)
+		console.log(students[i].name)
+		console.log(students[i].age)
+		console.log(students[i].email)
+		console.log(students[i].course)
+	}
+}
+// Will remove in the future
 
+// Error handling
+function input_validation(name, age, email) {
+    let is_valid = true;
 
-/*---STEP 3---*/
-class Student{
-    constructor(name, age, email, course){
-        this.studentNo = "2024" + this.numGen();
+    // helper function
+    function set_error(field_id, message) {
+        const field = document.getElementById(field_id);
+        const error_id = field_id + "_error";
+
+        // Create the error element the first time it's needed
+        let error_element = document.getElementById(error_id);
+        if (!error_element) {
+            error_element = document.createElement("span");
+            error_element.id = error_id;
+            error_element.style.color      = "red";
+            error_element.style.fontSize   = "0.85em";
+            error_element.style.display    = "block";
+            error_element.style.marginTop  = "2px";
+            field.insertAdjacentElement("afterend", error_element);
+        }
+
+        if (message) {
+            error_element.textContent = message;
+            field.style.outline = "2px solid red";
+            is_valid = false;
+        } else {
+            error_element.textContent = "";
+            field.style.outline = "";
+        }
+    }
+
+    if (name.trim() == "") {
+        set_error("uname", "Name is required.");
+    } else if (!name.includes(" ")) {
+        set_error("uname", "Please enter both first and last name.");
+    } else if (name.trim().length <= 5) {
+        set_error("uname", "Name must be longer than 5 characters.");
+    } else {
+        set_error("uname", null);
+    }
+
+    const age_num = Number(age);
+    if (age.trim() == "") {
+        set_error("age", "Age is required.");
+    } else if (isNaN(age_num) || !Number.isInteger(age_num)) {
+        set_error("age", "Age must be a whole number.");
+    } else if (age_num <= 18) {
+        set_error("age", "Age must be greater than 18");
+    } else if (age_num >= 99) {
+        set_error("age", "Age must be less than 99.");
+    }else {
+        set_error("age", null);
+    }
+
+    const email_trimmed = email.trim();
+    const up_email_regex = /^[^\s@]+@up\.edu\.ph$/;
+
+    if (email_trimmed == "") {
+        set_error("mail", "E-mail is required.");
+    } else if (!up_email_regex.test(email_trimmed)) {
+        set_error("mail", "E-mail must be a valid @up.edu.ph address.");
+    } else {
+        set_error("mail", null);
+    }
+
+    return is_valid;
+}
+
+function add_student() {
+    const name = document.getElementById("uname").value;
+    const age = document.getElementById("age").value;
+    const email = document.getElementById("mail").value;
+    const course = document.getElementById("course").value;
+	// use Try-Catch here i guess to stop it creating a student if there's an invalid input
+
+    if (!input_validation(name, age, email)) {
+        return;
+    }
+
+    const student = new Student(name, Number(age), email, course);
+    students.push(student);
+    console.log("Student added!", students);
+	
+	//Resets the text fields and dropdown window to default after student creation
+    document.getElementById("uname").value = "";
+    document.getElementById("age").value = "";
+    document.getElementById("mail").value = "";
+    document.getElementById("course").selectedIndex = 0;
+}
+
+class Student {
+    constructor(name, age, email, course) {
+        this.studentNo = this.numGen();
         this.name = this.nameVer(name);
         this.age = this.ageVer(age);
         this.email = this.emailVer(email);
-        this.course = this.courseVer(course);
-
+        this.course = course;
     }
-    numGen(){
-        return Math.floor(Math.random()* 90000) + 10000
-    }
-    nameVer(name){
-         if (name.length > 5 && name.includes(" ")) {
-            return name;
-        } else {
-            console.log("Invalid name!");
-        }
-    }
-    ageVer(age){
-         if (typeof age === "number" && age > 18 && age < 99) {
-            return age;
-        } else {
-            console.log("Invalid age!");
-        }
-    }
-    emailVer(email){
-         if (email.endsWith("@up.edu.ph")) {
-            return email;
-        } else {
-            console.log("Invalid email!");
-        }
-    }
-    courseVer(course){
-                const courses = [
-            "BA Food Appreciation",
-            "BA Applied Poetry of the Future",
-            "BS Computer Repair Shop",
-            "BS Video Gaming",
-            "BS Installing and Downloading"
-        ];
-        if (courses.includes(course)) {
-            return course;
-        } else {
-            console.log("Invalid course!");
-        }
-    }
-
+    
+	numGen(){
+        let num;
+		do {
+			num = "2024" + (Math.floor(Math.random() * 90000) + 10000);
+		} while (students.some(s => s.studentNo === num));
+		return num;
+	}
 }
-/*---STEP 3 END---*/

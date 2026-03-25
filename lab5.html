@@ -2,7 +2,26 @@
   <center>
     <button onclick="time_now()">Show Current Date</button>
     <p id="output"></p>
-    <p id="output1"></p>
+	<form>
+		<label for="uname">Name:</label><br>
+		<input type="text" id="uname" name="uname"><br>
+		<label for="age">Age:</label><br>
+		<input type="text" id="age" name="age"><br>
+		<label for="mail">E-mail:</label><br>
+		<input type="email" id="mail" name="lname"><br>
+		<label for="course">Choose your Course</label><br>
+		<select name="course" id="course">
+			<option value="BA Food Appreciation">BA Food Appreciation</option>
+			<option value="BA Applied Poetry of the Future">BA Applied Poetry of the Future</option>
+			<option value="BS Computer Repair Shop">BS Computer Repair Shop</option>
+			<option value="BS Video Gaming">BS Video Gaming</option>
+			<option value="BS Installing and Downloading">BS Installing and Downloading</option>
+		</select><br>
+		<button type="button" onclick="add_student()">Submit</button><br>
+		<!-- Temporary Button to show added student info in console -->
+		<button type="button" onclick="showStudents()">show</button>
+		<!-- Will remove in the future -->
+	</form>
   </center>
   <script src="lab5_scripts.js"></script>
 
