@@ -1,3 +1,4 @@
+/*---STEP 2---*/
 function time_now(){
     const now = new Date();
     const options ={
@@ -11,14 +12,19 @@ function time_now(){
     }
     document.getElementById("output").innerHTML = 'Today is ' + now.toLocaleDateString('en-US', options) + "<br>The current time is " + now.toLocaleTimeString('en-US',optionsTime);
 }
+/*---STEP 2 END---*/
 
+
+
+
+/*---STEP 3---*/
 class Student{
     constructor(name, age, email, course){
-        this.studentNo = "2024" + numGen();
-        this.name = nameVer(name);
-        this.age = ageVer(age);
-        this.email = emailVer(email);
-        this.course = courseVer(course);
+        this.studentNo = "2024" + this.numGen();
+        this.name = this.nameVer(name);
+        this.age = this.ageVer(age);
+        this.email = this.emailVer(email);
+        this.course = this.courseVer(course);
 
     }
     numGen(){
@@ -59,4 +65,6 @@ class Student{
             console.log("Invalid course!");
         }
     }
+
 }
+/*---STEP 3 END---*/
