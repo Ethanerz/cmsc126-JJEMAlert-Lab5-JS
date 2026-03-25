@@ -121,9 +121,9 @@ function add_student() {
 class Student {
     constructor(name, age, email, course) {
         this.studentNo = this.numGen();
-        this.name = this.nameVer(name);
-        this.age = this.ageVer(age);
-        this.email = this.emailVer(email);
+        this.name = name
+        this.age = age
+        this.email = email
         this.course = course;
     }
     
