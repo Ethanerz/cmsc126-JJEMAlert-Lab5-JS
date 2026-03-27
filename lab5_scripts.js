@@ -135,3 +135,52 @@ class Student {
 		return num;
 	}
 }
+
+function find_student() {
+    const searchId = document.getElementById("searchId").value.trim();
+    const result = document.getElementById("searchResult");
+
+    const foundStudent = students.find(student => student.studentNo === searchId);
+
+    if (foundStudent) {
+        result.innerHTML = `
+            Student Number: ${foundStudent.studentNo}<br>
+            Name: ${foundStudent.name}<br>
+            Age: ${foundStudent.age}<br>
+            E-mail: ${foundStudent.email}<br>
+            Course: ${foundStudent.course}
+        `;
+    } else {
+        result.textContent = "Student record does not exist";
+    }
+}
+
+function display_list() {
+    const allStudentsDiv = document.getElementById("allStudents");
+
+    if (students.length === 0) {
+        allStudentsDiv.textContent = "No student records available.";
+        return;
+    }
+
+    let output = "";
+
+    for (let i = 0; i < students.length; i++) {
+        output += `
+            <p>
+                Student Number: ${students[i].studentNo}<br>
+                Name: ${students[i].name}<br>
+                Age: ${students[i].age}<br>
+                E-mail: ${students[i].email}<br>
+                Course: ${students[i].course}
+            </p>
+        `;
+    }
+
+    allStudentsDiv.innerHTML = output;
+}
+
+function close_list() {
+    const allStudentsDiv = document.getElementById("allStudents");
+    allStudentsDiv.innerHTML = "";
+}
