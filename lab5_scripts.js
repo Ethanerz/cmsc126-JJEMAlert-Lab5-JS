@@ -15,19 +15,6 @@ function time_now(){
 }
 /*---STEP 2 END---*/
 
-
-// Temporary Function to show added student info in console
-function showStudents(){
-	for (i=0; i < students.length; i++){
-		console.log(students[i].studentNo)
-		console.log(students[i].name)
-		console.log(students[i].age)
-		console.log(students[i].email)
-		console.log(students[i].course)
-	}
-}
-// Will remove in the future
-
 // Error handling
 function input_validation(name, age, email) {
     let is_valid = true;
